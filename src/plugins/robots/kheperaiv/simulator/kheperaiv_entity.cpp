@@ -17,6 +17,7 @@
 #include <argos3/plugins/simulator/entities/light_sensor_equipped_entity.h>
 #include <argos3/plugins/simulator/entities/proximity_sensor_equipped_entity.h>
 #include <argos3/plugins/simulator/entities/rab_equipped_entity.h>
+#include <argos3/plugins/simulator/entities/emane_equipped_entity.h>
 
 static CRadians ULTRASOUND_SENSOR_ANGLES[5] = {
    CRadians::ZERO,
@@ -41,6 +42,7 @@ namespace argos {
       m_pcProximitySensorEquippedEntity(NULL),
       m_pcUltrasoundSensorEquippedEntity(NULL),
       m_pcRABEquippedEntity(NULL),
+      m_pcEMANEEquippedEntity(NULL),
       m_pcWheeledEntity(NULL),
       m_pcBatteryEquippedEntity(NULL) {
    }
@@ -64,6 +66,7 @@ namespace argos {
       m_pcProximitySensorEquippedEntity(NULL),
       m_pcUltrasoundSensorEquippedEntity(NULL),
       m_pcRABEquippedEntity(NULL),
+      m_pcEMANEEquippedEntity(NULL),
       m_pcWheeledEntity(NULL),
       m_pcBatteryEquippedEntity(NULL) {
       try {
@@ -160,6 +163,16 @@ namespace argos {
                                    *m_pcEmbodiedEntity,
                                    CVector3(0.0f, 0.0f, KHEPERAIV_BASE_TOP));
          AddComponent(*m_pcRABEquippedEntity);
+         /* EMANE equipped entity */
+         m_pcEMANEEquippedEntity =
+            new CEMANEEquippedEntity(this,
+                                     "emane_0",
+                                     un_rab_data_size,
+                                     f_rab_range,
+                                     m_pcEmbodiedEntity->GetOriginAnchor(),
+                                     *m_pcEmbodiedEntity,
+                                     CVector3(0.0f, 0.0f, KHEPERAIV_BASE_HEIGHT));
+         AddComponent(*m_pcEMANEEquippedEntity);
          /* Battery equipped entity */
          m_pcBatteryEquippedEntity = new CBatteryEquippedEntity(this, "battery_0", str_bat_model);
          AddComponent(*m_pcBatteryEquippedEntity);
@@ -283,6 +296,16 @@ namespace argos {
                                    *m_pcEmbodiedEntity,
                                    CVector3(0.0f, 0.0f, KHEPERAIV_BASE_TOP));
          AddComponent(*m_pcRABEquippedEntity);
+         /* EMANE equipped entity */
+         m_pcEMANEEquippedEntity =
+            new CEMANEEquippedEntity(this,
+                                     "emane_0",
+                                     unDataSize,
+                                     fRange,
+                                     m_pcEmbodiedEntity->GetOriginAnchor(),
+                                     *m_pcEmbodiedEntity,
+                                     CVector3(0.0f, 0.0f, KHEPERAIV_BASE_HEIGHT));
+         AddComponent(*m_pcEMANEEquippedEntity);
          /* Battery equipped entity */
          m_pcBatteryEquippedEntity = new CBatteryEquippedEntity(this, "battery_0");
          if(NodeExists(t_tree, "battery"))
@@ -326,6 +349,8 @@ namespace argos {
          m_pcLEDEquippedEntity->Update();
       if(m_pcRABEquippedEntity->IsEnabled())
          m_pcRABEquippedEntity->Update();
+      if(m_pcEMANEEquippedEntity->IsEnabled())
+         m_pcEMANEEquippedEntity->Update();
       if(m_pcBatteryEquippedEntity->IsEnabled())
          m_pcBatteryEquippedEntity->Update();
    }
