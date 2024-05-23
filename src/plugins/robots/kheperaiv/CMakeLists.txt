@@ -1,3 +1,17 @@
+# Add options to build with EMANE library
+if(NOT DEFINED ARGOS_EMANE)
+  set(ARGOS_EMANE FALSE)
+endif()
+
+# Convert TRUE/FALSE to 1/0
+if(ARGOS_EMANE STREQUAL "TRUE")
+    set(ARGOS_EMANE 1)
+elseif(ARGOS_EMANE STREQUAL "FALSE")
+    set(ARGOS_EMANE 0)
+endif()
+
+add_definitions(-DARGOS_EMANE=${ARGOS_EMANE})
+
 #
 # kheperaiv headers
 #

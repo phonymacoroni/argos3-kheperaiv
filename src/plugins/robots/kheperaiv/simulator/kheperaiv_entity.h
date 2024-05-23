@@ -17,7 +17,9 @@ namespace argos {
    class CLightSensorEquippedEntity;
    class CProximitySensorEquippedEntity;
    class CRABEquippedEntity;
+#if ARGOS_EMANE
    class CEMANEEquippedEntity;
+#endif
 }
 
 #include <argos3/core/simulator/entity/composable_entity.h>
@@ -84,10 +86,11 @@ namespace argos {
       inline CRABEquippedEntity& GetRABEquippedEntity() {
          return *m_pcRABEquippedEntity;
       }
-
+#if ARGOS_EMANE
       inline CEMANEEquippedEntity& GetEMANEEquippedEntity() {
          return *m_pcEMANEEquippedEntity;
       }
+#endif
 
       inline CWheeledEntity& GetWheeledEntity() {
          return *m_pcWheeledEntity;
@@ -116,7 +119,9 @@ namespace argos {
       CProximitySensorEquippedEntity* m_pcUltrasoundSensorEquippedEntity;
       CProximitySensorEquippedEntity* m_pcLIDARSensorEquippedEntity;
       CRABEquippedEntity*             m_pcRABEquippedEntity;
+#if ARGOS_EMANE
       CEMANEEquippedEntity*           m_pcEMANEEquippedEntity;
+#endif
       CWheeledEntity*                 m_pcWheeledEntity;
       CBatteryEquippedEntity*         m_pcBatteryEquippedEntity;
    };
